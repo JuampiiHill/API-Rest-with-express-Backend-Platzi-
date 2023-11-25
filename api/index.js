@@ -12,7 +12,7 @@ app.use(express.json());
 const whitelist = ['http://localhost:8080', 'https://myapp.com'];
 const options = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Acceso no permitido'));
@@ -21,7 +21,7 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/api', (req, res) => {
+app.get('/api/', (req, res) => {
   res.send('Hello World, my first server')
 })
 
